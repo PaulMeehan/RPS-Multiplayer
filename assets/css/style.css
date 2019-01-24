@@ -1,0 +1,29 @@
+#heading {
+    height: 75px;
+    width: 100vw;
+    font-size: 50px;
+    text-align: center;
+}
+
+#enterPlayers {
+    text-align: center;
+    margin-top: 3px;
+    margin-bottom: 11px;
+}
+
+#player1, #messages, #player2 {
+    height: 300px;
+    border: 1px solid blue;
+}
+
+#conversation {
+    height: 150px;
+    border: 1px solid blue;
+    margin-top: 20px;
+}
+
+#enterChat {
+    height: 50px;
+    border: 1px solid blue;
+    margin-top: 12px;
+}
