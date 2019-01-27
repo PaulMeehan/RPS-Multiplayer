@@ -11,6 +11,12 @@
     margin-bottom: 11px;
 }
 
+#newGame {
+    text-align: center;
+    margin-top: 3px;
+    margin-bottom: 11px;
+}
+
 #player1, #messages, #player2 {
     height: 300px;
     border: 1px solid blue;
@@ -26,4 +32,32 @@
     height: 50px;
     border: 1px solid blue;
     margin-top: 12px;
+}
+
+.game {
+    height: 127px;
+}
+
+.choice {
+    height: 127px;
+}
+
+.gameButton {
+    width: 125px;
+    margin: 2px;
+}
+
+.choiceImg {
+    height: 100px;
+    width: 125px;
+}
+
+.choiceText {
+    height: 26px;
+    width: 125px;
+    position: relative;
+    bottom: 0px;
+    color: white;
+    background-color: lightseagreen; 
+    text-align: center;
 }
