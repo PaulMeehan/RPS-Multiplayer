@@ -21,6 +21,7 @@ var v_p2pick = "";
 var v_p2wins = 0;
 var v_p2losses = 0;
 var v_p2ties = 0;
+var v_conversation = "";
 
 function updateDatabase() {
     console.log("updateDatabase");
@@ -34,8 +35,10 @@ function updateDatabase() {
         p2pick: v_p2pick,
         p2wins: v_p2wins,
         p2losses: v_p2losses,
-        p2ties: v_p2ties
-    })
+        p2ties: v_p2ties,
+        conversation: v_conversation
+    });
+
 };
 
 $("#newGame").on("click", function () {
@@ -50,9 +53,9 @@ $("#newGame").on("click", function () {
     v_p2wins = 0;
     v_p2losses = 0;
     v_p2ties = 0;
+    v_conversation = "";
     $("#enterPlayers").attr("hidden", false);
     $("#newGame").attr("hidden", true);
-    // $(".players").css("visibility", "hidden");
     $(".game").css("visibility", "hidden");
     updateDatabase();
 
@@ -71,14 +74,14 @@ $("#signin").on("click", function() {
     newName = $("#pname").val();
     if (v_p1name.length === 0) {
         v_p1name = newName;
-        // $("#player1").css("visibility","visible");
+        $("#submit1").attr("hidden",false);
         updateDatabase();
     } else {
         v_p2name = newName;
-        // $("#player2").css("visibility", "visible");
         updateDatabase();
         $("#enterPlayers").attr("hidden", true);
         $("#newGame").attr("hidden", false);
+        $("#submit2").attr("hidden", false);
         resetGame();
     };
     $("#pname").val("");
@@ -182,6 +185,7 @@ database.ref().on("value", function (snapshot) {
     v_p2wins = snapshot.val().p2wins;
     v_p2losses = snapshot.val().p2losses;
     v_p2ties = snapshot.val().p2ties;
+    v_conversation = snapshot.val().conversation;
 
     $("#d_p1name").text(v_p1name);
     $("#d_p1wins").text(v_p1wins);
@@ -191,6 +195,9 @@ database.ref().on("value", function (snapshot) {
     $("#d_p2wins").text(v_p2wins);
     $("#d_p2losses").text(v_p2losses);
     $("#d_p2ties").text(v_p2ties);
+    $("#conversation").html(v_conversation);
+    var convoDiv = $("#conversation")[0];
+    convoDiv.scrollTop = convoDiv.scrollHeight;
 
     if (v_p1pick.length > 0 && v_p2pick.length > 0) {
         $("#p1game").attr("hidden",true);
@@ -244,12 +251,36 @@ $(".gameButton").on("click", function() {
 
 });
 
+
+$("#submit1").on("click", function () {
+    var pname = v_p1name;
+    var newP = "<div class='chatLeft'>";
+    newP = newP + pname + ": " + $("#chat-input").val();
+    newP = newP + "</div>";
+    v_conversation = v_conversation + newP;
+    $("#chat-input").val("");
+    updateDatabase();
+});
+
+$("#submit2").on("click", function () {
+    var pname = v_p2name;
+    var newP = "<div class='chatRight'>";
+    newP = newP + pname + ": " + $("#chat-input").val();
+    newP = newP + "</div>";
+    v_conversation = v_conversation + newP;
+    $("#chat-input").val("");
+    updateDatabase();
+});
+
+
 // Start the game with the new game button displayed if players are already in the database.
 // Otherwise, display the prompt for player names.
 
 console.log("here");
 $("#enterPlayers").attr("hidden", false);
 $("#newGame").attr("hidden", true);
+$("#submit1").attr("hidden", true);
+$("#submit2").attr("hidden", true);
 
 $(".choice").attr("hidden", true);
 

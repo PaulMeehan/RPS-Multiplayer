@@ -26,6 +26,7 @@
     height: 150px;
     border: 1px solid blue;
     margin-top: 20px;
+    overflow: auto;
 }
 
 #enterChat {
@@ -60,4 +61,14 @@
     color: white;
     background-color: lightseagreen; 
     text-align: center;
+}
+
+.chatLeft {
+    text-align: left;
+    background-color: antiquewhite;
+}
+
+.chatRight {
+    text-align: right;
+    background-color: lightgray;
 }
