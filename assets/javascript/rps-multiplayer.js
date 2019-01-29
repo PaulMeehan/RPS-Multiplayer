@@ -22,6 +22,7 @@ var v_p2wins = 0;
 var v_p2losses = 0;
 var v_p2ties = 0;
 var v_conversation = "";
+var v_message = "";
 
 function updateDatabase() {
     console.log("updateDatabase");
@@ -36,7 +37,8 @@ function updateDatabase() {
         p2wins: v_p2wins,
         p2losses: v_p2losses,
         p2ties: v_p2ties,
-        conversation: v_conversation
+        conversation: v_conversation,
+        message: v_message
     });
 
 };
@@ -54,6 +56,7 @@ $("#newGame").on("click", function () {
     v_p2losses = 0;
     v_p2ties = 0;
     v_conversation = "";
+    v_message = "Waiting for Player 1 to sign in ..."
     $("#enterPlayers").attr("hidden", false);
     $("#newGame").attr("hidden", true);
     $(".game").css("visibility", "hidden");
@@ -66,7 +69,8 @@ function resetGame() {
     $(".choice").attr("hidden", true);
     $(".game").attr("hidden", false);
     $(".game").css("visibility", "visible");
-    $("#messages").text("Make your choices ...");
+    v_message = "Make your choices ...";
+    updateDatabase();
 };
 
 $("#signin").on("click", function() {
@@ -152,15 +156,15 @@ function determineWinner () {
     if (winner === "p1") {
         v_p1wins = v_p1wins + 1;
         v_p2losses = v_p2losses + 1;
-        $("#messages").text(v_p1name + " wins!!");
+        v_message = v_p1name + " wins!!";
     } else if (winner === "p2") {
         v_p2wins = v_p2wins + 1;
         v_p1losses = v_p1losses + 1;
-        $("#messages").text(v_p2name + " wins!!");
+        v_message = v_p2name + " wins!!";
     } else {
         v_p1ties = v_p1ties + 1;
         v_p2ties = v_p2ties + 1;
-        $("#messages").text("Tie Game!!");
+        v_message = "Tie Game!!";
     };
 
     v_p1pick = "";
@@ -186,6 +190,7 @@ database.ref().on("value", function (snapshot) {
     v_p2losses = snapshot.val().p2losses;
     v_p2ties = snapshot.val().p2ties;
     v_conversation = snapshot.val().conversation;
+    v_message = snapshot.val().message;
 
     $("#d_p1name").text(v_p1name);
     $("#d_p1wins").text(v_p1wins);
@@ -195,6 +200,8 @@ database.ref().on("value", function (snapshot) {
     $("#d_p2wins").text(v_p2wins);
     $("#d_p2losses").text(v_p2losses);
     $("#d_p2ties").text(v_p2ties);
+    $("#messages").text(v_message);
+
     $("#conversation").html(v_conversation);
     var convoDiv = $("#conversation")[0];
     convoDiv.scrollTop = convoDiv.scrollHeight;
@@ -212,13 +219,14 @@ database.ref().on("value", function (snapshot) {
 
     if (v_p1name.length === 0 || v_p2name.length === 0) {
         if (v_p1name.length === 0) {
-            $("#messages").text("Waiting for Player 1 to sign in ...");
+            v_message = "Waiting for Player 1 to sign in ...";
         } else {
-            $("#messages").text("Waiting for Player 2 to sign in ...");
+            v_message = "Waiting for Player 2 to sign in ...";
         };
         $("#enterPlayers").attr("hidden", false);
         $("#newGame").attr("hidden", true);
         $(".game").css("visibility", "hidden");
+        updateDatabase();
     } else {
         $("#enterPlayers").attr("hidden", true);
         $("#newGame").attr("hidden", false);
@@ -238,12 +246,12 @@ $(".gameButton").on("click", function() {
         case "p1":
             v_p1pick = thisPick;
             $("#p1game").css("visibility","hidden");
-            $("#messages").text("Waiting for " + v_p2name + " to choose...");
+            v_message = "Waiting for " + v_p2name + " to choose...";
             break;
         case "p2":
             v_p2pick = thisPick;
             $("#p2game").css("visibility", "hidden");
-            $("#messages").text("Waiting for " + v_p1name + " to choose...");
+            v_message = "Waiting for " + v_p1name + " to choose...";
             break;
     };
 

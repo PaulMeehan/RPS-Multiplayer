@@ -1,4 +1,23 @@
+body {
+    font-family: 'Permanent Marker', cursive;
+    background-color: #233237;
+    font-size: 18px;
+    color: white;
+}
+
+.btn {
+    background-color: #EAC67A;
+    color: #984B43;
+}
+
+.btn:hover {
+    background-color: rgb(206, 161, 65);
+    color: white;
+}
+
 #heading {
+    color: #EAC67A;
+    font-family: 'Miltonian', cursive;
     height: 75px;
     width: 100vw;
     font-size: 50px;
@@ -9,30 +28,31 @@
     text-align: center;
     margin-top: 3px;
     margin-bottom: 11px;
+    color: #EAC67A;
 }
 
-#newGame {
+#newGameDiv {
     text-align: center;
     margin-top: 3px;
     margin-bottom: 11px;
 }
 
 #player1, #messages, #player2 {
-    height: 300px;
-    border: 1px solid blue;
+    height: 317px;
+    border: 3px solid #EAC67A;
+    background-color: #984B43;
+    color: #EAC67A;
 }
 
-#conversation {
-    height: 150px;
-    border: 1px solid blue;
-    margin-top: 20px;
-    overflow: auto;
+.playerNumber {
+    text-align: center;
+    text-decoration: underline;
 }
 
-#enterChat {
-    height: 50px;
-    border: 1px solid blue;
-    margin-top: 12px;
+.playerName {
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
 }
 
 .game {
@@ -58,17 +78,49 @@
     width: 125px;
     position: relative;
     bottom: 0px;
-    color: white;
-    background-color: lightseagreen; 
+    color: #984B43;
+    background-color: #EAC67A; 
     text-align: center;
 }
 
+#messages {
+    text-align: center;
+    font-size: 22px;
+    padding-top: 20px;
+}
+
+#conversation {
+    height: 150px;
+    border: 3px solid #EAC67A;
+    margin-top: 20px;
+    overflow: auto;
+    background-color: #18121E;
+    padding: 0px;
+}
+
+#chatLabel {
+    color: #EAC67A;
+    margin: 14px;
+}
+
+#enterChat {
+    height: 50px;
+    margin-top: 12px;
+    padding: 0px;
+    margin-top: 13px;
+}
+
+.btnChat {
+    margin-top: 13px;
+}
 .chatLeft {
     text-align: left;
-    background-color: antiquewhite;
+    background-color: #984B43;
+    color: #EAC67A;
 }
 
 .chatRight {
     text-align: right;
-    background-color: lightgray;
+    background-color: #EAC67A;
+    color: #984B43;
 }
